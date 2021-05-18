@@ -15,68 +15,41 @@ public class MainFrame extends JFrame {
     private static int mineCount;
     private static boolean isSingle =false;
     GamePanel gamePanel;
-    GameInfo gameInfo;
 
 
     public MainFrame(Difficulty difficulty) {
         this.xCount = difficulty.getX();
         this.yCount = difficulty.getY();
         this.mineCount = difficulty.getMineNum();
-
         init();
-        gameInfo = new GameInfo();
-        this.add(gameInfo);
     }
 
     public MainFrame() {
         this.xCount = LevelFrame.getDefinedLength();
         this.yCount = LevelFrame.getDefinedWidth();
         this.mineCount = LevelFrame.getDefinedMineNumbers();
-
         init();
-        gameInfo = new GameInfo();
-        this.add(gameInfo);
     }
 
     public MainFrame(int x, int y, int m) {
         this.xCount = x;
         this.yCount = y;
         this.mineCount = m;
-
         init();
-        gameInfo = new GameInfo();
-        this.add(gameInfo);
     }
 
-    public MainFrame(int x, int y, int m,int minute,int second,int msecond) {
-        this.xCount = x;
-        this.yCount = y;
-        this.mineCount = m;
-
-        init();
-        gameInfo = new GameInfo();
-        this.add(gameInfo);
-    }
-
-    //solo constructor
     public MainFrame(Difficulty difficulty, int x){
         this.xCount = difficulty.getX();
         this.yCount = difficulty.getY();
         this.mineCount = difficulty.getMineNum();
         this.isSingle = true;
 
-        this.setTitle("Minesweeper2021");
+        this.setTitle("2021 CS102A Project Demo 2");
         this.setLayout(null);
-        this.setSize(yCount * GridComponent.gridSize + 40, xCount * GridComponent.gridSize + 220);
+        this.setSize(yCount * GridComponent.gridSize + 20, xCount * GridComponent.gridSize + 200);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        //background import
-        JLabel bg = new JLabel(new ImageIcon("src/GamePic/background.jpg"));
-        bg.setBounds(0, 0, yCount * GridComponent.gridSize + 40, xCount * GridComponent.gridSize + 220);
-        this.getLayeredPane().add(bg, new Integer(Integer.MIN_VALUE));
-        ((JPanel)this.getContentPane()).setOpaque(false); //设置透明
 
         Player p1 = new Player("1");
         Player p2 = new Player("2");
@@ -129,6 +102,7 @@ public class MainFrame extends JFrame {
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
                 }
+
             }
         });
 
@@ -137,10 +111,33 @@ public class MainFrame extends JFrame {
         clickBtn.setLocation(12, gamePanel.getHeight() + scoreBoard.getHeight());
         add(clickBtn);
         clickBtn.addActionListener(e -> {
+
+
             MainFrame.controller.getP1().addLife();
             clickBtn.setVisible(false);
+
+        });
+
+
+        JButton b= new JButton("Apple");
+        b.setSize(120, 20);
+        b.setLocation(12, gamePanel.getHeight() + scoreBoard.getHeight()+66);
+        add(b);
+        b.addActionListener(e -> {
+            if (MainFrame.controller.goodApple()){
+                MainFrame.controller.getP1().addLife();
+                clickBtn.setVisible(false);
+            }
+            else {MainFrame.controller.getP1().costLife();
+                clickBtn.setVisible(false);}
+
+
+
+
+
         });
     }
+
 
 
     private void init() {
@@ -153,7 +150,7 @@ public class MainFrame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //background import
-        JLabel bg = new JLabel(new ImageIcon("src/GamePic/background.jpg"));
+        JLabel bg = new JLabel(new ImageIcon("D:\\JAVA Pro\\Integrated2\\background.jpg"));
         bg.setBounds(0, 0, yCount * GridComponent.gridSize + 40, xCount * GridComponent.gridSize + 220);
         this.getLayeredPane().add(bg, new Integer(Integer.MIN_VALUE));
         ((JPanel)this.getContentPane()).setOpaque(false); //设置透明
@@ -169,25 +166,15 @@ public class MainFrame extends JFrame {
         controller.setGamePanel(gamePanel);
         ScoreBoard scoreBoard = new ScoreBoard(p1, p2, xCount, yCount);
         controller.setScoreBoard(scoreBoard);
-//        gameInfo = new GameInfo();
+        GameInfo gameInfo = new GameInfo();
 
 
         this.add(gamePanel);
-//        this.add(gameInfo);
+        this.add(gameInfo);
         this.add(scoreBoard);
 
         //初始化菜单
         initMenu();
-
-        //Addition button ?
-        JButton a = new JButton("Again");
-        a.setSize(120, 20);
-        a.setLocation(12, gamePanel.getHeight() + scoreBoard.getHeight());
-        add(a);
-        a.addActionListener(e -> {
-            MainFrame.controller.playAgain();
-
-        });
     }
 
     public void initMenu() {
@@ -270,5 +257,6 @@ public class MainFrame extends JFrame {
     public static boolean isIsSingle() {
         return isSingle;
     }
-
 }
+
+

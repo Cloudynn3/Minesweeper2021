@@ -4,6 +4,7 @@ import entity.GridStatus;
 import entity.Player;
 import minesweeper.*;
 
+import java.util.Random;
 import java.util.TimerTask;
 import java.util.Timer;
 
@@ -32,8 +33,8 @@ public class GameController {
 
 
     public GameController(Player p1, Player p2) {
-        p1.setUserName(ThirdFrame.getP1username());
-        p2.setUserName(ThirdFrame.getP2username());
+           p1.setUserName(ThirdFrame.getP1username());
+           p2.setUserName(ThirdFrame.getP2username());
         this.init(p1, p2);
         this.onTurn = p1;
         setTurnNum(ThirdFrame.getTurnTimes());
@@ -41,23 +42,20 @@ public class GameController {
     }
 
 
-    public boolean isStringNull(String s) {
-        if (s == null) return true;
+    public boolean isStringNull(String s){
+        if (s==null) return true;
         else return false;
     }
 
     //是否换人
-    public boolean changePlayer(int clickNum, int turnNum) {
-        if (!MainFrame.isIsSingle()) {
-            scoreBoard.update();
-        } else {
-            scoreBoard.update(1);
-        }
-        if (clickNum % turnNum == 0) {
+    public boolean changePlayer(int clickNum, int turnNum){
+        if (!MainFrame.isIsSingle()){scoreBoard.update();}
+        else {scoreBoard.update(1);}
+        if (clickNum%turnNum==0) {
             return true;
-        } else return false;
+        }
+        else return false;
     }
-
     /**
      * 初始化游戏。在开始游戏前，应先调用此方法，给予游戏必要的参数。
      *
@@ -99,11 +97,9 @@ public class GameController {
         }
         //仅点击没有点过的格子有效
         //if (GridComponent.haveBeenClicked()){
-        if (onTurn == p1) {
-            System.out.println("Now it's Round " + roundNum);
-        }
+        if (onTurn==p1){System.out.println("Now it's Round " +roundNum );}
         System.out.println("Now it is " + onTurn.getUserName() + "'s turn.");
-        scoreBoard.update();
+      scoreBoard.update();
 
         //}
         //TODO: 在每个回合结束的时候，还需要做什么 (例如...检查游戏是否结束？)
@@ -119,7 +115,7 @@ public class GameController {
 //            //TODO: 在每个回合结束的时候，还需要做什么 (例如...检查游戏是否结束？)
 //
 //        }
-    }
+}
 
 
     /**
@@ -127,7 +123,7 @@ public class GameController {
      *
      * @return 正在进行当前回合的玩家
      */
-    public Player getOnTurnPlayer() {
+    public  Player getOnTurnPlayer() {
         return onTurn;
     }
 
@@ -147,7 +143,7 @@ public class GameController {
         return scoreBoard;
     }
 
-    public static void setGamePanel(GamePanel gamePanel) {
+    public  static void setGamePanel(GamePanel gamePanel) {
         GameController.gamePanel = gamePanel;
     }
 
@@ -161,7 +157,7 @@ public class GameController {
 
     }
 
-    public void writeDataToFile(String fileName) {
+    public void writeDataToFile(String fileName){
         //todo: write data into file
     }
 
@@ -183,28 +179,27 @@ public class GameController {
 
 
     //回合结束后遍历，检验游戏是否结束
-    public static boolean isOver() {
+    public static boolean isOver(){
         int n = findRemainedMine();
-        if (n != 0) {
-            if (Math.abs(ScoreBoard.getP1().getScore() - ScoreBoard.getP2().getScore()) > n) {
-                return true;
-            } else return false;
-        } else return true;
+        if (n!=0){
+        if(Math.abs(ScoreBoard.getP1().getScore()-ScoreBoard.getP2().getScore())>n){return true;}
+        else return false;}
+        else  return true;
     }
 
     //get the winner
-    public static int getWinner() {
+    public static int getWinner(){
         int n = findRemainedMine();
-        if (ScoreBoard.getP1().getScore() > ScoreBoard.getP2().getScore()) {
+        if(ScoreBoard.getP1().getScore() > ScoreBoard.getP2().getScore()){
             return 1;
-        } else if (ScoreBoard.getP1().getScore() < ScoreBoard.getP2().getScore()) {
+        }else if(ScoreBoard.getP1().getScore() < ScoreBoard.getP2().getScore()){
             return 2;
-        } else {
-            if (ScoreBoard.getP1().getMistake() > ScoreBoard.getP2().getMistake()) {
+        }else {
+            if(ScoreBoard.getP1().getMistake() > ScoreBoard.getP2().getMistake()){
                 return 2;
-            } else if (ScoreBoard.getP1().getMistake() < ScoreBoard.getP2().getMistake()) {
+            }else if(ScoreBoard.getP1().getMistake() < ScoreBoard.getP2().getMistake()){
                 return 1;
-            } else {
+            }else {
                 return 0;
             }
         }
@@ -212,19 +207,26 @@ public class GameController {
 
 
     //ZWY寻找剩余雷数
-    public static int findRemainedMine() {
+    public static int findRemainedMine(){
         int n = 0;
         int x = GamePanel.getChessboard().length;
         int y = GamePanel.getChessboard()[0].length;
+        if (!MainFrame.isIsSingle()){
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                if (GamePanel.getMineField()[i][j].getStatus() == GridStatus.Covered || GamePanel.getMineField()[i][j].getStatus() == GridStatus.Cheat) {
-                    if (GamePanel.getChessboard()[i][j] == -1) {
-                        n++;
-                    }
+                if (GamePanel.getMineField()[i][j].getStatus() == GridStatus.Covered||GamePanel.getMineField()[i][j].getStatus() == GridStatus.Cheat){
+                    if (GamePanel.getChessboard()[i][j]==-1){n++;}
                 }
             }
         }
+        }
+       if (MainFrame.isIsSingle()){for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                if (GamePanel.getMineField()[i][j].getStatus() == GridStatus.Covered){
+                    if (GamePanel.getChessboard()[i][j]==-1){n++;}
+                }
+            }
+        }}
         return n;
     }
 
@@ -260,16 +262,11 @@ public class GameController {
         return turnNum;
     }
 
-    public static Difficulty getDifficult(String s) {
-        if ("Easy".equals(s)) {
-            return Difficulty.easy;
-        }
-        if ("Medium".equals(s)) {
-            return Difficulty.medium;
-        }
-        if ("Hard".equals(s)) {
-            return Difficulty.hard;
-        } else return null;
+    public static Difficulty getDifficult(String s){
+        if ("Easy".equals(s)){return Difficulty.easy;}
+        if ("Medium".equals(s)){return Difficulty.medium;}
+        if ("Hard".equals(s)){return Difficulty.hard;}
+        else return null;
     }
 
     public static void addClickNum() {
@@ -288,19 +285,15 @@ public class GameController {
         GameController.clickNum = clickNum;
     }
 
-    public static boolean isSingleOver() {
-        if (!MainFrame.isIsSingle()) {
-            return false;
-        }
-        if (MainFrame.controller.getP1().getLife() == 0) {
-            return true;
-        }
-        if (MainFrame.controller.getP1().getMistake() == 3) {
-            return true;
-        }
+    public static boolean isSingleOver(){
+        if (!MainFrame.isIsSingle()){return false;}
+        if (MainFrame.controller.getP1().getLife()==0){
+            return true;}
+        if (MainFrame.controller.getP1().getMistake()==3){
+            return true;}
         for (int i = 0; i < GamePanel.getMineField().length; i++) {
             for (int j = 0; j < GamePanel.getMineField()[0].length; j++) {
-                if (GamePanel.getMineField()[i][j].getStatus() == GridStatus.Covered) {
+                if (GamePanel.getMineField()[i][j].getStatus()==GridStatus.Covered){
                     return false;
                 }
             }
@@ -308,22 +301,15 @@ public class GameController {
         winTime++;
         return true;
     }
+    //打完一关后load名字，life，刷新wrong,mistake
 
-    public String hisWords() {
-        if ((MainFrame.controller.getP1().getLife() == 3)) {
-            return "End1";
-        }
+    public String hisWords(){
+        if ((MainFrame.controller.getP1().getLife()==3)){return "End1";}
         //if (MainFrame.controller.getP1().getMistake()==3){return "End2";}
-        if (MainFrame.controller.getP1().getLife() == 2) {
-            return "End3";
-        }
-        if (MainFrame.controller.getP1().getLife() == 1) {
-            return "End4";
-        }
-        if (MainFrame.controller.getP1().getLife() == 0) {
-            return "End5";
-        }
-        return null;
+        if (MainFrame.controller.getP1().getLife()==2){return "End3";}
+        if (MainFrame.controller.getP1().getLife()==1){return "End4";}
+        if (MainFrame.controller.getP1().getLife()==0){return "End5";}
+       return null;
     }
 
     public static int getWinTime() {
@@ -334,15 +320,15 @@ public class GameController {
         GameController.winTime = winTime;
     }
 
-    public static void aStrangeSense() {
+    public static void aStrangeSense(){
         int x = GamePanel.getChessboard().length;
         int y = GamePanel.getChessboard()[0].length;
 
         for (int i = 0; i < x; i++) {
             int h = 0;
             for (int j = 0; j < y; j++) {
-                if (GamePanel.getMineField()[i][j].getStatus() == GridStatus.Covered) {
-                    if (GamePanel.getChessboard()[i][j] == -1) {
+                if (GamePanel.getMineField()[i][j].getStatus() == GridStatus.Covered){
+                    if (GamePanel.getChessboard()[i][j]==-1){
                         GamePanel.getMineField()[i][j].setStatus(GridStatus.Cheat);
                         GamePanel.getMineField()[i][j].repaint();
                         h = 1;
@@ -350,43 +336,42 @@ public class GameController {
                     }
                 }
             }
-            if (h == 1) {
-                break;
-            }
+            if (h == 1){break;}
         }
     }
 
 
-    public void time() {
+
+
+    public void time(){
         //Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
+        TimerTask timerTask = new TimerTask (){
             public void run() {
-                scoreBoard.timeFlies();
-                System.out.println(scoreBoard.getTime());
-                scoreBoard.update();
-                if (scoreBoard.getTime() <= 0) {
-                    setClickNum(getClickNum() + getTurnNum() - (getClickNum() % getTurnNum()));
-                    setClick(0);
-                    nextTurn();
-                    scoreBoard.newTurn();
-                }
-                if (changePlayer(getClick(), getTurnNum()) && getClick() != 0) {
-                    setClick(0);
-                    scoreBoard.newTurn();
-                }
-                if (isOver()) {
-                    timer.cancel();
-                }
+            scoreBoard.timeFlies();
+            //System.out.println(scoreBoard.getTime());
+            scoreBoard.update();
+            if (scoreBoard.getTime()<=0) {
+                setClickNum(getClickNum() + getTurnNum() - (getClickNum() % getTurnNum()));
+                setClick(0);
+                nextTurn();
+                scoreBoard.newTurn();
             }
-        };
-        timer.schedule(timerTask, 1000L, 1000L);
+            if (changePlayer(getClick(), getTurnNum())&&getClick()!=0){
+                setClick(0);
+                scoreBoard.newTurn();
+            }
+            if (isOver()){
+                timer.cancel();
+            }
+        }
+    };
+        timer.schedule(timerTask,1000L,1000L);
+}
+     public static void closeTimer() {
+     MainFrame.controller.timer.cancel();
     }
 
-    public static void closeTimer() {
-        MainFrame.controller.timer.cancel();
-    }
-
-    public static void restartGame() {
+    public static void restartGame(){
 
         MainFrame.controller.closeTimer();
         String a = MainFrame.controller.getP1().getUserName();
@@ -404,7 +389,7 @@ public class GameController {
         mainFrame.setVisible(true);
     }
 
-    public static void addClick() {
+    public static void addClick(){
         click++;
     }
 
@@ -416,14 +401,13 @@ public class GameController {
         GameController.click = click;
     }
 
-    public void playAgain() {
+    public void playAgain(){
         int x = GamePanel.getChessboard().length;
         int y = GamePanel.getChessboard()[0].length;
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
                 if (GamePanel.getMineField()[i][j].getStatus() != GridStatus.Covered
-                ) {
-                    GamePanel.getMineField()[i][j].setStatus(GridStatus.Covered);
+                ){GamePanel.getMineField()[i][j].setStatus(GridStatus.Covered);
                     GamePanel.getMineField()[i][j].repaint();
                 }
             }
@@ -437,4 +421,12 @@ public class GameController {
         setClickNum(0);
         setRoundNum(0);
     }
+
+    public boolean goodApple(){
+        Random a = new Random();
+        int t = a.nextInt(1);
+        if(t==1){return true;}
+        else return false;
+    }
+
 }

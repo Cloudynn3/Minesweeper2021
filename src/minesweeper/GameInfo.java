@@ -10,28 +10,16 @@ public class GameInfo extends JPanel {
     private static JLabel leftLabel;
     private static JLabel rightLabel;
     private static JLabel mineNumbers = new JLabel();
-    private TimePanel time;
+    private TimePanel time = new TimePanel();
 
     public GameInfo() {
-        time = new TimePanel();
-
-        init();
-    }
-
-    public GameInfo(int minute,int second,int msecond) {
-        time = new TimePanel(minute,second,msecond);
-
-        init();
-    }
-
-    private void init() {
         this.setBounds(10, 5, MainFrame.getyCount() * GridComponent.gridSize + 20, 60);
         this.setOpaque(false);
 
         this.setLayout(null);
 
-        leftLabel = new JLabel(new ImageIcon("D:\\JAVA File\\Game file\\Integrated1\\time.png"));
-        rightLabel = new JLabel(new ImageIcon("D:\\JAVA File\\Game file\\Integrated1\\mine.png"));
+        leftLabel = new JLabel(new ImageIcon("D:\\JAVA Pro\\Integrated2\\time.png"));
+        rightLabel = new JLabel(new ImageIcon("D:\\JAVA Pro\\Integrated2\\mine.png"));
         leftLabel.setBounds(10, 5, 180, 60);
         rightLabel.setBounds((MainFrame.getyCount() * GridComponent.gridSize + 20) / 2, 5, 180, 60);
 

@@ -8,27 +8,11 @@ import java.awt.event.ActionListener;
 public class TimePanel extends JPanel {
 
     public static Timer timer;
-    private static int minute;
-    private static int second;
-    private static int mSecond;
+    int minute = 0, second = 0, mSecond = 0;
     String time = "0" + minute + ":0" + second;
     Font font = new Font("TimesRoman", Font.BOLD, 20);
 
     TimePanel() {
-        minute = 0;
-        second = 0;
-        mSecond = 0;
-        init();
-    }
-
-    TimePanel(int minute, int second, int mSecond) {
-        this.minute = minute;
-        this.second = second;
-        this.mSecond = mSecond;
-        init();
-    }
-
-    private void init() {
         timer = new Timer(20, new ActionListener() {    //TODO:set the delay !
 
             @Override
@@ -64,9 +48,9 @@ public class TimePanel extends JPanel {
         timer.start();
     }
 
-
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
 
         g.setFont(font);
         g.setColor(Color.orange);
@@ -78,19 +62,6 @@ public class TimePanel extends JPanel {
 
     public static Timer getTimer() {
         return timer;
-    }
-
-
-    public static int getMinute() {
-        return minute;
-    }
-
-    public static int getSecond() {
-        return second;
-    }
-
-    public static int getmSecond() {
-        return mSecond;
     }
 
 }

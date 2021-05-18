@@ -15,7 +15,7 @@ public class InfoFrame extends JFrame {
 
         this.setLayout(null);
 
-        JLabel background = new JLabel(new ImageIcon("src/GamePic/Enter.jpg"));
+        JLabel background = new JLabel(new ImageIcon("D:\\JAVA Pro\\Integrated2\\enter1.jpg"));
         background.setSize(1280,720);
 
         //初始游戏窗口

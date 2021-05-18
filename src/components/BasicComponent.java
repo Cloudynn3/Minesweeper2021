@@ -12,8 +12,8 @@ public abstract class BasicComponent extends JComponent {
     private void initial(){
         this.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 if(e.getButton()==1){
                     onMouseLeftClicked();
                 }
@@ -22,7 +22,6 @@ public abstract class BasicComponent extends JComponent {
                 }
             }
         });
-
     }
 
     /**

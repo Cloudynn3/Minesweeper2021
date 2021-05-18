@@ -59,18 +59,18 @@ public class ScoreBoard extends JPanel {
      */
     public void update() {
         if (!MainFrame.isIsSingle()){
-            score1.setText(String.format("     %s : %d score (+ %d mistake)", p1.getUserName(), p1.getScore(), p1.getMistake()));
-            score2.setText(String.format("     %s : %d score (+ %d mistake)", p2.getUserName(), p2.getScore(), p2.getMistake()));
-            score3.setText(String.format("     Time left: %d ", ScoreBoard.getTime()));
-            score1.setForeground(Color.LIGHT_GRAY);
-            score2.setForeground(Color.LIGHT_GRAY);
-            score3.setForeground(Color.LIGHT_GRAY);}
+        score1.setText(String.format("     %s : %d score (+ %d mistake)", p1.getUserName(), p1.getScore(), p1.getMistake()));
+        score2.setText(String.format("     %s : %d score (+ %d mistake)", p2.getUserName(), p2.getScore(), p2.getMistake()));
+        score3.setText(String.format("     Time left: %d ", ScoreBoard.getTime()));
+        score1.setForeground(Color.LIGHT_GRAY);
+        score2.setForeground(Color.LIGHT_GRAY);
+        score3.setForeground(Color.LIGHT_GRAY);}
     }
 
     public void update(int s) {
         score1.setText(String.format("     %s : still has %d lives, lose %d bits", p1.getUserName(), p1.getLife(), p1.getMistake()));
 
-    }
+    }//Todo
 
     public JLabel getScore1() {
         return score1;
@@ -104,10 +104,5 @@ public class ScoreBoard extends JPanel {
         setTime(45);
     }
 
-    public static boolean isRunOutOfTime(){
-        if (Time<0){
-            return true;
-        }
-        else return false;
-    }
+
 }

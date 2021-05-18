@@ -92,14 +92,6 @@ public class GamePanel extends JPanel {
                 if (chessboard1[i][j]==-1&&(chessboard1[i-1][j-1]+chessboard1[i][j-1]+chessboard1[i+1][j-1]+chessboard1[i+1][j]+
                         chessboard1[i-1][j]+chessboard1[i-1][j+1]+chessboard1[i][j+1]+chessboard1[i+1][j+1]==-8)){
                     f = true;
-//                    generateChessBoard(xCount, yCount, mineCount);
-//                    MainFrame.controller.getGamePanel().generateChessBoard(MainFrame.getxCount(), MainFrame.getyCount(), MainFrame.getMineCount());
-//                    for (int i1 = 0; i1 < getChessboard().length; i1++) {
-//                        for (int j1 = 0; j1 < getChessboard()[0].length; j1++) {
-//                            GamePanel.getMineField()[i1][j1].setContent(GamePanel.getChessboard()[i1][j1]);
-//                            GamePanel.getMineField()[i1][j1].repaint();
-//                        }
-//                    }
                 }
             }
         }
@@ -179,5 +171,9 @@ public class GamePanel extends JPanel {
             }
         }
     }
+
+
+
+
 
 }
