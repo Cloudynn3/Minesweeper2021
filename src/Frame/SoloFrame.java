@@ -12,41 +12,8 @@ public class SoloFrame extends JFrame {
     int counter = 0;
 
     public SoloFrame(){
-        this.setTitle("Adventurer");
-        this.setSize(500, 260);
-        this.setLocationRelativeTo(null);
-        this.setAlwaysOnTop(true);
-        this.setDefaultCloseOperation(3);
-
-        this.setLayout(null);
-
-        //TODO: insert background pic.
-
-        JTextField P1input = new JTextField();
-        P1input.setBounds(300, 80, 150, 30);
-        this.add(P1input);
-
-        JButton confirm = new JButton("Confirm");
-        confirm.setBounds(330, 180, 80, 30);
-        this.add(confirm);
-
-        confirm.addActionListener(e -> {
-
-            if (P1input.getText().equals("")) {
-                System.out.println("User didn't input P1 username.");
-                name = "Adventurer#" + (ran.nextInt(9000) + 1000);
-            } else {
-                name = P1input.getText();
-            }
-
-            System.out.println("Adventurer's Name : " + name);
-            dispose();
-
-            //Open Story
-            StoryFrame();
-        });
-
-        this.setVisible(true);
+        //Skip to StoryFrame
+        StoryFrame();
     }
 
     public void StoryFrame(){

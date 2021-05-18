@@ -65,12 +65,18 @@ public class MainFrame extends JFrame {
         this.mineCount = difficulty.getMineNum();
         this.isSingle = true;
 
-        this.setTitle("2021 CS102A Project Demo 2");
+        this.setTitle("Minesweeper2021");
         this.setLayout(null);
-        this.setSize(yCount * GridComponent.gridSize + 20, xCount * GridComponent.gridSize + 200);
+        this.setSize(yCount * GridComponent.gridSize + 40, xCount * GridComponent.gridSize + 220);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //background import
+        JLabel bg = new JLabel(new ImageIcon("src/GamePic/background.jpg"));
+        bg.setBounds(0, 0, yCount * GridComponent.gridSize + 40, xCount * GridComponent.gridSize + 220);
+        this.getLayeredPane().add(bg, new Integer(Integer.MIN_VALUE));
+        ((JPanel)this.getContentPane()).setOpaque(false); //设置透明
 
         Player p1 = new Player("1");
         Player p2 = new Player("2");
